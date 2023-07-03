@@ -1,0 +1,46 @@
+name: Integration
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        sparse-checkout: |
+          /*
+          !/README.md
+          !/.github/
+          !/README_en.md
+      
+    - name: Set Git config
+      run: |
+          git config user.name "Jarvis"
+          git config user.email "you@example.com"
+
+    - name: Update repositories
+      run: |
+        git clone --depth 1 https://github.com/kenzok8/openwrt-packages.git
+        cp -r openwrt-packages/* "$GITHUB_WORKSPACE/"
+        rm -rf openwrt-packages
+        
+        git clone --depth 1 https://github.com/Wyatt323/luci-theme-mcat.git
+        cp -r luci-theme-mcat/* "$GITHUB_WORKSPACE/"
+        rm -rf luci-theme-mcat
+
+    - name: Commit changes
+      run: |
+        cd "$GITHUB_WORKSPACE/"
+        if [[ $(git status --porcelain) ]]; then
+          git add .
+          git commit -m "Sync with external repositories"
+          git push origin main
+        else
+          echo "No changes to commit."
+        fi
