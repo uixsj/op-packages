@@ -31,7 +31,7 @@ jobs:
         rm -rf openwrt-packages
         
         git clone --depth 1 https://github.com/Wyatt323/luci-theme-mcat.git
-        cp -r luci-theme-mcat "$GITHUB_WORKSPACE/"
+        cp -r luci-theme-mcat/* "$GITHUB_WORKSPACE/"
         rm -rf luci-theme-mcat
 
     - name: Commit changes
