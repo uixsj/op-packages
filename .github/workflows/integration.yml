@@ -30,7 +30,7 @@ jobs:
         cp -r openwrt-packages/* "$GITHUB_WORKSPACE/"
         rm -rf openwrt-packages
         
-        git clone --depth 1 https://github.com/Wyatt323/luci-theme-mcat.git
+        git clone https://github.com/Wyatt323/luci-theme-mcat.git
         cp -r luci-theme-mcat/* "$GITHUB_WORKSPACE/"
         rm -rf luci-theme-mcat
 
