@@ -1,6 +1,6 @@
 #### 说明 
 
-* 感谢[kenzok8]([https://github.com/kenzok8/small](https://github.com/kenzok8/openwrt-packages))，每天自动同步更新
+* 感谢[kenzok8](https://github.com/kenzok8/openwrt-packages)，每天自动同步更新
 
 * 需要与[op-small仓库](https://github.com/uixsj/op-small)一起使用
 
