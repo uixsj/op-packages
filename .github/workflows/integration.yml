@@ -28,7 +28,7 @@ jobs:
       run: |
         git clone --depth 1 https://github.com/kenzok8/openwrt-packages.git
         rm -rf openwrt-packages/README*
-        rm -rf openwrt-packages/.github/
+        rm -rf openwrt-packages/.git*
         cp -r openwrt-packages/* "$GITHUB_WORKSPACE/"
         rm -rf openwrt-packages
 
