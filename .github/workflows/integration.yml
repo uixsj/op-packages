@@ -31,6 +31,34 @@ jobs:
         rm -rf openwrt-packages/.git*
         cp -r openwrt-packages/* "$GITHUB_WORKSPACE/"
         rm -rf openwrt-packages
+        
+        mkdir tmp
+        git clone --depth 1 https://github.com/kenzok8/small.git tmp/small
+        rm -rf tmp/small/README*
+        rm -rf tmp/small/.git*
+        rm -rf tmp/small/luci-app-passwall
+        
+        git clone https://github.com/xiaorouji/openwrt-passwall.git tmp/openwrt-passwall
+        rm -rf tmp/openwrt-passwall/.git
+        rm -rf tmp/openwrt-passwall/.github
+        
+        for dir in $(find tmp/small -type d); do
+          subdir=$(basename "$dir")
+          if [ ! -d "tmp/openwrt-passwall/$subdir" ]; then
+              rsync -av --checksum "$dir/" "$GITHUB_WORKSPACE/$dir"
+          fi
+        done
+        rsync -av --checksum tmp/openwrt-passwall/ "openwrt-passwall"
+        rm -rf tmp/openwrt-passwall
+        
+        git clone --depth 1 --branch luci-smartdns-new-version https://github.com/xiaorouji/openwrt-passwall.git tmp/luci-app-passwall-smartdns
+        rsync -av --checksum tmp/luci-app-passwall-smartdns/luci-app-passwall/ "luci-app-passwall-smartdns"
+        sed -i 's/PKG_NAME:=luci-app-passwall/PKG_NAME:=luci-app-passwall-smartdns/g' luci-app-passwall-smartdns/Makefile
+        rm -rf tmp/luci-app-passwall-smartdns
+        
+        git clone --depth 1 --branch luci https://github.com/xiaorouji/openwrt-passwall.git tmp/luci-app-passwall
+        rsync -av --checksum tmp/luci-app-passwall/luci-app-passwall/ "luci-app-passwall"
+        rm -rf tmp/luci-app-passwall
 
     - name: Commit changes
       run: |
