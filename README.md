@@ -2,16 +2,12 @@
 
 * 感谢[kenzok8](https://github.com/kenzok8/openwrt-packages)，每天自动同步更新
 
-* 需要与[op-small仓库](https://github.com/uixsj/op-small)一起使用
-
 * 软件不定期同步大神库更新，适合一键下载用于openwrt编译
-
 
 #### 使用
 一键命令
 ```yaml
-sed -i '$a src-git kenzo https://github.com/uixsj/op-packages' feeds.conf.default
-sed -i '$a src-git small https://github.com/uixsj/op-small' feeds.conf.default
+sed -i '$a src-git uixsj https://github.com/uixsj/op-packages' feeds.conf.default
 git pull
 ./scripts/feeds update -a
 ./scripts/feeds install -a
