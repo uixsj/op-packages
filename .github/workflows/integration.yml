@@ -42,13 +42,11 @@ jobs:
         rm -rf tmp/openwrt-passwall/.git
         rm -rf tmp/openwrt-passwall/.github
         
-        for dir in $(find tmp/small -type d); do
-          subdir=$(basename "$dir")
-          echo $dir;
-          echo $subdir;
-          if [ ! -d "tmp/openwrt-passwall/$subdir" ]; then
-              rsync -av --checksum "$dir/" "$GITHUB_WORKSPACE/$dir"
-          fi
+        subdirs=$(find tmp/small -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
+        for subdir in $subdirs; do
+            if [ ! -d "tmp/openwrt-passwall/$subdir" ]; then
+              rsync -av --checksum "tmp/small/$subdir/" "$GITHUB_WORKSPACE/$subdir"
+            fi
         done
         rsync -av --checksum tmp/openwrt-passwall/ "openwrt-passwall"
         rm -rf tmp/openwrt-passwall
