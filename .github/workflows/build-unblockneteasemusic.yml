@@ -49,8 +49,8 @@ jobs:
             luci-app-unblockneteasemusic for OpemWrt.
           artifacts: "bin/packages/${{ matrix.arch }}/packages_ci/*.ipk"
 
-      - name: TG
-        run: curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=❤️unblockneteasemusic-${{ matrix.arch }}.ipk编译完成！%0A编译时间：$(TZ='Asia/Shanghai' date +%Y年%m月%d日 %H:%M:%S)%0A下载地址：https://github.com/uixsj/op-packages/releases/tag/unblockneteasemusic"
+#      - name: TG
+#        run: curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=❤️unblockneteasemusic-${{ matrix.arch }}.ipk编译完成！%0A编译时间：$(TZ='Asia/Shanghai' date +%Y年%m月%d日 %H:%M:%S)%0A下载地址：https://github.com/uixsj/op-packages/releases/tag/unblockneteasemusic"
 
       - name: Old workflow
         uses: FunctionXJB/delete-workflow-runs@main
