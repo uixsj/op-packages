@@ -1,0 +1,68 @@
+name: Build unblockneteasemusic
+
+on:
+  schedule:
+    - cron: "0 6 */3 * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build unblockneteasemusic
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch:
+          - x86_64
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Build
+        uses: sbwml/openwrt-gh-action-sdk@go1.20
+        env:
+          ARCH: ${{ matrix.arch }}-openwrt-22.03
+          FEEDNAME: packages_ci
+          PACKAGES:  luci-app-unblockneteasemusic
+          NO_REFRESH_CHECK: true
+      - name: Time Work
+        run:
+          echo "TAG_TIME=$(date +"%Y%m%d")" >> $GITHUB_ENV
+        
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: unblockneteasemusic-${{ matrix.arch }}
+          path: bin/packages/${{ matrix.arch }}/packages_ci/*.ipk
+
+      - name: Upload packages
+        uses: ncipollo/release-action@v1
+        with:
+          name: "unblockneteasemusic-${{ matrix.arch }}"
+          token: ${{ secrets.workflow_token }}
+          allowUpdates: true
+          replacesArtifacts: true
+          tag: "unblockneteasemusic"
+          body: |
+            luci-app-unblockneteasemusic for OpemWrt.
+          artifacts: "bin/packages/${{ matrix.arch }}/packages_ci/*.ipk"
+
+      - name: TG
+        run: curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=❤️unblockneteasemusic-${{ matrix.arch }}.ipk编译完成！%0A编译时间：$(TZ='Asia/Shanghai' date +%Y年%m月%d日 %H:%M:%S)%0A下载地址：https://github.com/uixsj/op-packages/releases/tag/unblockneteasemusic"
+
+      - name: Old workflow
+        uses: FunctionXJB/delete-workflow-runs@main
+        with:
+          retain_days: 180
+          keep_minimum_runs: 10
+
+      - name: Old Releases
+        uses: dev-drprasad/delete-older-releases@v0.2.1
+        if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+        with:
+          keep_latest: 20
+          delete_tags: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.workflow_token }}
