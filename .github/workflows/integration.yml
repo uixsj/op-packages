@@ -58,6 +58,10 @@ jobs:
         
         git clone --depth 1 --branch luci https://github.com/xiaorouji/openwrt-passwall.git tmp/luci-app-passwall
         rsync -av --checksum tmp/luci-app-passwall/luci-app-passwall/ "luci-app-passwall"
+    
+        git clone --depth 1 https://github.com/sirpdboy/luci-app-ddns-go.git tmp/ddns-go
+        rsync -av --checksum tmp/ddns-go/luci-app-ddns-go/ "luci-app-ddns-go"
+        rsync -av --checksum tmp/ddns-go/ddns-go/ "ddns-go"
         
         rm -rf tmp
 
