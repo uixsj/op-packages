@@ -22,6 +22,9 @@ msgstr "点我检测"
 msgid "Kernel Unsupported"
 msgstr "内核不支持"
 
+msgid "Settings"
+msgstr "设置"
+
 msgid "Main Settings"
 msgstr "节点选择"
 
@@ -121,6 +124,9 @@ msgstr "你只需要在SmartDNS配置好国内DNS分组，并设置重定向或�
 msgid "Filter Mode"
 msgstr "过滤模式"
 
+msgid "A/AAAA type"
+msgstr "A/AAAA 类型"
+
 msgid "TCP node must be '%s' type to use FakeDNS."
 msgstr "TCP 节点必须是 '%s' 类型才能使用 FakeDNS。"
 
@@ -177,6 +183,9 @@ msgstr "过滤代理域名 IPv6"
 
 msgid "Experimental feature."
 msgstr "实验性功能。"
+
+msgid "Use FakeDNS work in the shunt domain that proxy."
+msgstr "需要代理的分流规则域名使用 FakeDNS。"
 
 msgid "Clear IPSET"
 msgstr "清空 IPSET"
@@ -522,6 +531,9 @@ msgstr "QUIC 并发双向流的最大数量"
 
 msgid "Disable MTU detection"
 msgstr "禁用 MTU 检测"
+
+msgid "ignoreClientBandwidth"
+msgstr "忽略客户端带宽设置"
 
 msgid "Lazy Start"
 msgstr "延迟启动"
@@ -1426,6 +1438,9 @@ msgstr "XUDP 最大并发连接数"
 msgid "Mux idle timeout"
 msgstr "最大闲置时间"
 
+msgid "Padding"
+msgstr "填充"
+
 msgid "Enable early data"
 msgstr "启用前置数据"
 
@@ -1492,5 +1507,29 @@ msgstr "自定义geosite文件更新链接"
 msgid "Override the connection destination address"
 msgstr "覆盖连接目标地址"
 
+msgid "Handshake Server"
+msgstr "握手服务器"
+
+msgid "Handshake Server Port"
+msgstr "握手服务器端口"
+
 msgid "Override the connection destination address with the sniffed domain."
 msgstr "用探测出的域名覆盖连接目标地址。"
+
+msgid "Protocol parameter. Will waste traffic randomly if enabled."
+msgstr "协议参数。 如果启用会随机浪费流量。"
+
+msgid "Protocol parameter. Enable length block encryption."
+msgstr "协议参数。启用长度块加密。"
+
+msgid "ECH Config"
+msgstr "ECH 密钥"
+
+msgid "ECH Key"
+msgstr "ECH 配置"
+
+msgid "PQ signature schemes"
+msgstr "后量子对等证书签名方案"
+
+msgid "Disable adaptive sizing of TLS records"
+msgstr "禁用 TLS 记录的自适应大小调整"
