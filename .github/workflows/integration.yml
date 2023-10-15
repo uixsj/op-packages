@@ -33,31 +33,23 @@ jobs:
         rm -rf openwrt-packages
         
         mkdir tmp
-        git clone --depth 1 https://github.com/kenzok8/small.git tmp/small
-        rm -rf tmp/small/README*
-        rm -rf tmp/small/.git*
-        rm -rf tmp/small/luci-app-passwall
         
-        git clone https://github.com/xiaorouji/openwrt-passwall.git tmp/openwrt-passwall
+        git clone https://github.com/xiaorouji/openwrt-passwall-packages.git tmp/openwrt-passwall
         rm -rf tmp/openwrt-passwall/.git
         rm -rf tmp/openwrt-passwall/.github
-        
-        subdirs=$(find tmp/small -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
-        for subdir in $subdirs; do
-            if [ ! -d "tmp/openwrt-passwall/$subdir" ]; then
-              rsync -av --checksum "tmp/small/$subdir/" "$GITHUB_WORKSPACE/$subdir"
-            fi
-        done
         rsync -av --checksum tmp/openwrt-passwall/ "openwrt-passwall"
         rm -rf tmp/openwrt-passwall
         
-        git clone --depth 1 --branch luci-smartdns-new-version https://github.com/xiaorouji/openwrt-passwall.git tmp/luci-app-passwall-smartdns
+        git clone --depth 1 --branch luci-smartdns-dev https://github.com/xiaorouji/openwrt-passwall.git tmp/luci-app-passwall-smartdns
         rsync -av --checksum tmp/luci-app-passwall-smartdns/luci-app-passwall/ "luci-app-passwall-smartdns"
         sed -i 's/PKG_NAME:=luci-app-passwall/PKG_NAME:=luci-app-passwall-smartdns/g' luci-app-passwall-smartdns/Makefile
         rm -rf tmp/luci-app-passwall-smartdns
         
-        git clone --depth 1 --branch luci https://github.com/xiaorouji/openwrt-passwall.git tmp/luci-app-passwall
+        git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall.git tmp/luci-app-passwall
         rsync -av --checksum tmp/luci-app-passwall/luci-app-passwall/ "luci-app-passwall"
+
+        git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall2.git tmp/luci-app-passwall2
+        rsync -av --checksum tmp/luci-app-passwall2/luci-app-passwall2/ "luci-app-passwall2"
     
         git clone --depth 1 https://github.com/sirpdboy/luci-app-ddns-go.git tmp/ddns-go
         rsync -av --checksum tmp/ddns-go/luci-app-ddns-go/ "luci-app-ddns-go"
