@@ -40,11 +40,6 @@ jobs:
         rsync -av --checksum tmp/openwrt-passwall/ "openwrt-passwall"
         rm -rf tmp/openwrt-passwall
         
-        git clone --depth 1 --branch luci-smartdns-dev https://github.com/xiaorouji/openwrt-passwall.git tmp/luci-app-passwall-smartdns
-        rsync -av --checksum tmp/luci-app-passwall-smartdns/luci-app-passwall/ "luci-app-passwall-smartdns"
-        sed -i 's/PKG_NAME:=luci-app-passwall/PKG_NAME:=luci-app-passwall-smartdns/g' luci-app-passwall-smartdns/Makefile
-        rm -rf tmp/luci-app-passwall-smartdns
-        
         git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall.git tmp/luci-app-passwall
         rsync -av --checksum tmp/luci-app-passwall/luci-app-passwall/ "luci-app-passwall"
 
